@@ -9,9 +9,13 @@ import store from "../store/store";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = "CodeSandbox";
+  domainObject = null;
 
   constructor(private codeParamStoreLocalCache: CodeParameterStoreLocalCache) {
-    const obj = codeParamStoreLocalCache.build(PanelDomainObject, "1");
+    this.domainObject = codeParamStoreLocalCache.build(PanelDomainObject, "1");
+  }
+
+  onNameChanged(event) {
+    this.domainObject.name = event.target.value;
   }
 }

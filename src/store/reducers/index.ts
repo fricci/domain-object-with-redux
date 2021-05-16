@@ -1,19 +1,21 @@
 import produce from "immer";
 import { combineReducers } from "redux";
 
-function pageDomainObjectReducer(state = [], action) {
+function pageDomainObjectReducer(state = {}, action) {
   switch (action.type) {
     case "ADD_PANEL":
-      return state.concat([action.text]);
+      return state;
     default:
       return state;
   }
 }
 
-function panelDomainObjectReducer(state = [], action) {
+function panelDomainObjectReducer(state = {}, action) {
   switch (action.type) {
-    case "ADD_UI_ELEMENT":
-      return state.concat([action.text]);
+    case "MODIFY_NAME":
+      return produce(state, (draftState) => {
+        draftState[action.id].name = action.name;
+      });
     default:
       return state;
   }
@@ -28,7 +30,7 @@ function defaultReducer(state = {}, action) {
   switch (action.type) {
     case "STORE_JSON": {
       return produce(state, (draftState) => {
-        state[action.type][action.id] = action.jsonObject;
+        draftState[action.paramType][action.id] = action.jsonObject;
       });
     }
     default:
