@@ -1,4 +1,5 @@
 import { createStore } from "redux";
+import { Subject } from "rxjs";
 import reducer from "./reducers/index";
 
 const store = createStore(
@@ -6,4 +7,10 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-export default store;
+const store$ = new Subject();
+
+store.subscribe(() => {
+  store$.next(store.getState());
+});
+
+export { store as default, store$ };
