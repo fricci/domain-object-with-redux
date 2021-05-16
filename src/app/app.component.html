@@ -1,6 +1,15 @@
-<span>Id</span><input [(ngModel)]="idToCreate" /><button (click)="onCreateNewDomainObject()">Create</button>
+<span class="id-input-title">Id</span>
+<input class="id-input" [(ngModel)]="idToCreate" />
+<button class="create-domain-object-button" (click)="onCreateNewDomainObject()">Create</button>
 
-<div *ngFor="let domainObject of domainObjects">
-    <input (change)="onNameChanged(domainObject, $event)" />
-    <div>{{ domainObject?.name | async }}</div>
+<div class="list-item" *ngFor="let domainObject of domainObjects; trackBy:generateId">
+    <div>
+        <span class="name-input-title">{{'Add name for panel ' + domainObject.id}}</span><input (change)="onNameChanged(domainObject, $event)" />
+    </div>
+    <div>
+        <span>Repaint timestamp: </span><span class="paint-timestamp">{{timestamp}}</span>
+    </div>
+    <div>
+        <span>Name: </span><span>{{ domainObject?.name | async }}</span>
+    </div>
 </div>

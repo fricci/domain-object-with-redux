@@ -10,7 +10,7 @@ import store from "../store/store";
 })
 export class AppComponent {
   domainObjects = [];
-  idToCreate= '';
+  idToCreate = '';
 
   constructor(private codeParamStoreLocalCache: CodeParameterStoreLocalCache) {
   }
@@ -20,10 +20,20 @@ export class AppComponent {
   }
 
   onCreateNewDomainObject() {
-    if(this.idToCreate) {
+    if (this.idToCreate) {
       const domainObject = this.codeParamStoreLocalCache.build(PanelDomainObject, this.idToCreate);
       this.domainObjects.push(domainObject);
       this.idToCreate = '';
     }
+  }
+
+  generateId(index, domainObject) {
+    console.log(domainObject)
+    return domainObject.id;
+  }
+
+  get timestamp() {
+    const date = new Date();
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}::${date.getMilliseconds()}`;
   }
 }
