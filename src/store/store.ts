@@ -1,10 +1,13 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware  } from "redux";
 import { Subject } from "rxjs";
 import reducer from "./reducers/index";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(
   reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(
+    applyMiddleware()
+  )
 );
 
 const store$ = new Subject();
