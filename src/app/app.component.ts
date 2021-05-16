@@ -9,13 +9,21 @@ import store from "../store/store";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  domainObject = null;
+  domainObjects = [];
+  idToCreate= '';
 
   constructor(private codeParamStoreLocalCache: CodeParameterStoreLocalCache) {
-    this.domainObject = codeParamStoreLocalCache.build(PanelDomainObject, "1");
   }
 
-  onNameChanged(event) {
-    this.domainObject.name = event.target.value;
+  onNameChanged(domainObject, event) {
+    domainObject.name = event.target.value;
+  }
+
+  onCreateNewDomainObject() {
+    if(this.idToCreate) {
+      const domainObject = this.codeParamStoreLocalCache.build(PanelDomainObject, this.idToCreate);
+      this.domainObjects.push(domainObject);
+      this.idToCreate = '';
+    }
   }
 }

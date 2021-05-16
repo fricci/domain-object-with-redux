@@ -1,15 +1,10 @@
 const watch = require("redux-watch");
-import objectPath from "object-path";
-import { Observable, Subject } from "rxjs";
-import { distinctUntilChanged, map, tap } from "rxjs/operators";
-import store, { store$ } from "../store";
+import { Observable} from "rxjs";
+import store, { createObservableFrom } from "../store";
 
 export class PanelDomainObject {
 
-  public name$ = store$.pipe(
-    map((val) => objectPath.get(val, `PANEL.${this.id}.name`)),
-    distinctUntilChanged()
-  );
+  public name$ = createObservableFrom(`PANEL.${this.id}.name`);
 
   constructor(private id: string) {
     let w = watch(store.getState, `PANEL.${id}`);

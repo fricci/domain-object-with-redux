@@ -1,3 +1,6 @@
-<input (change)="onNameChanged($event)" />
+<span>Id</span><input [(ngModel)]="idToCreate" /><button (click)="onCreateNewDomainObject()">Create</button>
 
-<div>{{ domainObject?.name | async }}</div>
+<div *ngFor="let domainObject of domainObjects">
+    <input (change)="onNameChanged(domainObject, $event)" />
+    <div>{{ domainObject?.name | async }}</div>
+</div>
